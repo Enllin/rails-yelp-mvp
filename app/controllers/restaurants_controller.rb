@@ -3,10 +3,6 @@ class RestaurantsController < ApplicationController
     @restaurant = Restaurant.find(params[:id])
   end
 
-  def restaurant_params
-    params.require(:restaurant).permit(:name, :address, :category, :phone_number)
-  end
-
   def create
     @restaurant = Restaurant.new(restaurant_params)
     if @restaurant.valid?
@@ -28,5 +24,15 @@ class RestaurantsController < ApplicationController
 
   def index
     @restaurants = Restaurant.all
+  end
+
+  def reviews
+    @reviews = Restaurant.find(params[:id]).reviews
+  end
+
+  private
+
+  def restaurant_params
+    params.require(:restaurant).permit(:name, :address, :category, :phone_number)
   end
 end
